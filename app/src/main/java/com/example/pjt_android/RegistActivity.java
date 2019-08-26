@@ -1,13 +1,16 @@
 package com.example.pjt_android;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -203,6 +206,11 @@ public class RegistActivity extends AppCompatActivity {
             }
         }
 
+        if(et_id.length()==0 || et_pw.length()==0 || et_pw_enter.length()==0 || et_nickname.length()==0){
+            Toast.makeText(RegistActivity.this, "필수 데이터를 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         for(int i=0; i<checkBoxes.length; i++){
             if(checkBoxes[i].isChecked()){
                 check_cnt++;
@@ -278,6 +286,8 @@ public class RegistActivity extends AppCompatActivity {
                             }
                         });
                     }
+
+                    connection.disconnect();
                 }catch (Exception e){
                     e.printStackTrace();
                 }

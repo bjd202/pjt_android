@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         if(btn_login.getText().toString().equals("로그인")) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, LOGIN_REQUESTCODE);
-            String msg=intent.getStringExtra("msg");
-            Toast.makeText( MainActivity.this, msg, Toast.LENGTH_SHORT).show();
         }else{
 
         }
@@ -64,5 +62,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode==LOGIN_REQUESTCODE){
+            if(resultCode==RESULT_OK) {
+                String login_msg = data.getStringExtra("login_msg");
+                Toast.makeText(this, login_msg, Toast.LENGTH_SHORT).show();
+                btn_login.setText("로그아웃");
+            }
+        }
     }
 }
