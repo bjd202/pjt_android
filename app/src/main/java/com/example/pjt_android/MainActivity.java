@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private final int REGIST_REQUESTCODE=200;
+    private final int LOGIN_REQUESTCODE=300;
 
     Button btn_regist;
     Button btn_login;
@@ -33,11 +35,29 @@ public class MainActivity extends AppCompatActivity {
                 regist();
             }
         });
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login();
+            }
+        });
+
     }
 
     public void regist(){
         Intent intent=new Intent(this, RegistActivity.class);
         startActivityForResult(intent, REGIST_REQUESTCODE);
+    }
+
+    public void login(){
+        if(btn_login.getText().toString().equals("로그인")) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, LOGIN_REQUESTCODE);
+            String msg=intent.getStringExtra("msg");
+            Toast.makeText( MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+        }else{
+
+        }
     }
 
     @Override
