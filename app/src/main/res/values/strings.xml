@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">pjt_android</string>
+    <string name="ip">192.168.219.100:8181</string>
 </resources>

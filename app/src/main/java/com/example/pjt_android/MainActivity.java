@@ -3,13 +3,32 @@ package com.example.pjt_android;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.CookieManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpCookie;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final String HOST_NETWORK_PROTOCOL="http://";
+    private static final String HOST_ADDRESS="192.168.219.100:8181";
+    private static final String HOST_APP_NAME="/webapp/android";
+
+    //private final String HOST_ADDRESS=this.getResources().getString(R.string.ip);
 
     private final int REGIST_REQUESTCODE=200;
     private final int LOGIN_REQUESTCODE=300;
@@ -54,8 +73,89 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, LOGIN_REQUESTCODE);
         }else{
-
+            logout();
         }
+    }
+
+    public void logout(){
+        String targetURL="/logout";
+
+        try{
+            URL endpoint=new URL(HOST_NETWORK_PROTOCOL+
+                    HOST_ADDRESS+
+                    HOST_APP_NAME+
+                    targetURL);
+
+            HttpURLConnection connection= (HttpURLConnection) endpoint.openConnection();
+
+            String cookieString =
+                    CookieManager.getInstance().getCookie(
+                            MainActivity.HOST_NETWORK_PROTOCOL +
+                                    MainActivity.HOST_ADDRESS +
+                                    MainActivity.HOST_APP_NAME);
+
+            if( cookieString != null )
+                connection.setRequestProperty("Cookie", cookieString);
+            else
+                return;
+
+            connection.setRequestMethod("GET");
+
+            if( connection.getResponseCode() == HttpURLConnection.HTTP_OK ) {
+
+                Map<String, List<String>> headerFields = connection.getHeaderFields();
+                String COOKIES_HEADER = "Set-Cookie";
+                List<String> cookiesHeader = headerFields.get(COOKIES_HEADER);
+
+                if(cookiesHeader != null) {
+                    for (String cookie : cookiesHeader) {
+                        String cookieName = HttpCookie.parse(cookie).get(0).getName();
+                        String cookieValue = HttpCookie.parse(cookie).get(0).getValue();
+
+                        cookieString = cookieName + "=" + cookieValue;
+                        CookieManager.getInstance().setCookie(
+                                MainActivity.HOST_NETWORK_PROTOCOL +
+                                        MainActivity.HOST_ADDRESS +
+                                        MainActivity.HOST_APP_NAME, cookieString);
+                    }
+                }
+
+                BufferedReader in=new BufferedReader(new InputStreamReader(connection.getInputStream(),"UTF-8"));
+                Gson gson=new Gson();
+
+                HashMap<String, String> result=new HashMap<>();
+                result=gson.fromJson(in, result.getClass());
+
+                final String logout_result=result.get("login_result");
+                final String logout_msg=result.get("login_msg");
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(logout_result.equals("true")){
+                            Toast.makeText(MainActivity.this, logout_msg, Toast.LENGTH_SHORT).show();
+                            btn_login.setText("로그인");
+                        }else{
+                            Toast.makeText(MainActivity.this, logout_msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }else{
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "통신 에러", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            connection.disconnect();
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
