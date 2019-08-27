@@ -29,10 +29,6 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String HOST_NETWORK_PROTOCOL="http://";
-    private static final String HOST_ADDRESS="192.168.219.100:8181";
-    private static final String HOST_APP_NAME="/webapp/android";
-
     TextInputLayout til_id;
     TextInputLayout til_pw;
 
@@ -92,15 +88,15 @@ public class LoginActivity extends AppCompatActivity {
                 String targetURL="/login";
 
                 try{
-                    URL endPoint=new URL(HOST_NETWORK_PROTOCOL +
-                            HOST_ADDRESS +
-                            HOST_APP_NAME +
+                    URL endPoint=new URL(getString(R.string.HOST_NETWORK_PROTOCOL) +
+                            getString(R.string.HOST_ADDRESS) +
+                            getString(R.string.HOST_APP_NAME) +
                             targetURL);
                     HttpURLConnection connection=(HttpURLConnection) endPoint.openConnection();
 
-                    String cookieString= CookieManager.getInstance().getCookie(HOST_NETWORK_PROTOCOL +
-                            HOST_ADDRESS +
-                            HOST_APP_NAME);
+                    String cookieString= CookieManager.getInstance().getCookie(getString(R.string.HOST_NETWORK_PROTOCOL) +
+                            getString(R.string.HOST_ADDRESS) +
+                            getString(R.string.HOST_APP_NAME));
 
                     if(cookieString != null){
                         connection.setRequestProperty("Cookie", cookieString);
@@ -122,9 +118,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                 cookieString = cookieName + "=" + cookieValue;
                                 CookieManager.getInstance().setCookie(
-                                        HOST_NETWORK_PROTOCOL +
-                                                HOST_ADDRESS +
-                                                HOST_APP_NAME, cookieString);
+                                        getString(R.string.HOST_NETWORK_PROTOCOL) +
+                                                getString(R.string.HOST_ADDRESS) +
+                                                getString(R.string.HOST_APP_NAME), cookieString);
                             }
                         }
 

@@ -34,10 +34,6 @@ import java.util.HashMap;
 
 public class RegistActivity extends AppCompatActivity {
 
-    private static final String HOST_NETWORK_PROTOCOL="http://";
-    private static final String HOST_ADDRESS="192.168.219.100:8181";
-    private static final String HOST_APP_NAME="/webapp/android";
-
     private Handler handler=new Handler();
 
     TextInputLayout[] textInputLayouts;
@@ -169,9 +165,9 @@ public class RegistActivity extends AppCompatActivity {
         // web client 를 chrome 으로 설정
         webView.setWebChromeClient(new WebChromeClient());
         // web view url load
-        webView.loadUrl(HOST_NETWORK_PROTOCOL+
-                HOST_ADDRESS+
-                HOST_APP_NAME+
+        webView.loadUrl(getString(R.string.HOST_NETWORK_PROTOCOL) +
+                getString(R.string.HOST_ADDRESS) +
+                getString(R.string.HOST_APP_NAME) +
                 targetURL);
 
         WindowManager.LayoutParams params=dialog.getWindow().getAttributes();
@@ -248,9 +244,9 @@ public class RegistActivity extends AppCompatActivity {
                 String targetURL="/regist";
 
                 try {
-                    URL endPoint=new URL(HOST_NETWORK_PROTOCOL+
-                            HOST_ADDRESS+
-                            HOST_APP_NAME+
+                    URL endPoint=new URL(getString(R.string.HOST_NETWORK_PROTOCOL) +
+                            getString(R.string.HOST_ADDRESS) +
+                            getString(R.string.HOST_APP_NAME) +
                             targetURL);
 
                     HttpURLConnection connection=(HttpURLConnection) endPoint.openConnection();
