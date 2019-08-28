@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +18,15 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.nhn.android.naverlogin.OAuthLogin;
+import com.nhn.android.naverlogin.OAuthLoginHandler;
+import com.nhn.android.naverlogin.ui.view.OAuthLoginButton;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -29,6 +39,8 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
+    Context context=this;
+
     TextInputLayout til_id;
     TextInputLayout til_pw;
 
@@ -37,11 +49,22 @@ public class LoginActivity extends AppCompatActivity {
 
     Button btn_login;
     Button btn_back;
+    OAuthLoginButton btn_naver_login;
+
+    public static OAuthLogin mOAuthLoginModule = OAuthLogin.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mOAuthLoginModule.init(
+                this,
+                getString(R.string.naverClientID),
+                getString(R.string.naverClientSecret),
+                getString(R.string.naverClientName)
+        );
 
         til_id=findViewById(R.id.loginact_til_id);
         til_pw=findViewById(R.id.loginact_til_pw);
@@ -51,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_login=findViewById(R.id.loginact_btn_login);
         btn_back=findViewById(R.id.loginact_btn_back);
+        btn_naver_login=findViewById(R.id.naver_login);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                 back();
             }
         });
+
+        btn_naver_login.setOAuthLoginHandler(mOAuthLoginHandler);
     }
 
     private void login(){
@@ -165,6 +191,45 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    private OAuthLoginHandler mOAuthLoginHandler = new OAuthLoginHandler() {
+        @Override
+        public void run(boolean success) {
+            if (success) {
+                final String accessToken = mOAuthLoginModule.getAccessToken(context);
+                String refreshToken = mOAuthLoginModule.getRefreshToken(context);
+                long expiresAt = mOAuthLoginModule.getExpiresAt(context);
+                String tokenType = mOAuthLoginModule.getTokenType(context);
+
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        String apiResult = mOAuthLoginModule.requestApi(context, accessToken, "https://openapi.naver.com/v1/nid/me");
+
+                        JsonParser jsonParser=new JsonParser();
+                        JsonElement jsonElement=jsonParser.parse(apiResult);
+
+                        JsonElement response=jsonElement.getAsJsonObject().get("response");
+                        final String id=response.getAsJsonObject().get("id").toString();
+                        String nickname=response.getAsJsonObject().get("nickname").toString();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(context, id, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+
+            }else{
+                String errorCode = mOAuthLoginModule.getLastErrorCode(context).getCode();
+                String errorDesc = mOAuthLoginModule.getLastErrorDesc(context);
+                Toast.makeText(context, "errorCode:" + errorCode
+                        + ", errorDesc:" + errorDesc, Toast.LENGTH_SHORT).show();
+            }
+        };
+    };
 
     private void back(){
         finish();
