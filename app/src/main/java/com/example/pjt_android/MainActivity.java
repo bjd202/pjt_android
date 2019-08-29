@@ -5,8 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.widget.Button;
@@ -19,9 +26,14 @@ import java.io.InputStreamReader;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.kakao.util.helper.Utility.getPackageInfo;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 login();
             }
         });
+
+        getKeyHash(this);
 
     }
 
@@ -166,7 +180,30 @@ public class MainActivity extends AppCompatActivity {
                 String login_msg = data.getStringExtra("login_msg");
                 Toast.makeText(this, login_msg, Toast.LENGTH_SHORT).show();
                 btn_login.setText("로그아웃");
+            }else if(resultCode==RESULT_CANCELED){
+                String member_id=data.getStringExtra("member_id");
+                Intent intent=new Intent(MainActivity.this, SnsRegistActivity.class);
+                intent.putExtra("member_id", member_id);
+                startActivityForResult(intent, REGIST_REQUESTCODE);
             }
         }
+    }
+
+    public static String getKeyHash(final Context context) {
+        PackageInfo packageInfo = getPackageInfo(context, PackageManager.GET_SIGNATURES);
+        if (packageInfo == null)
+            return null;
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("hashkey", Base64.encodeToString(md.digest(), Base64.NO_WRAP));
+                return Base64.encodeToString(md.digest(), Base64.NO_WRAP);
+            } catch (NoSuchAlgorithmException e) {
+                Log.w("e", "Unable to get MessageDigest. signature=" + signature, e);
+            }
+        }
+        return null;
     }
 }
