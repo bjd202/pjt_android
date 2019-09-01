@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">pjt_android</string>
     <string name="HOST_NETWORK_PROTOCOL">http://</string>
-    <string name="HOST_ADDRESS">192.168.0.25:8080</string>
+    <string name="HOST_ADDRESS">192.168.219.100:8181</string>
     <string name="HOST_APP_NAME">/webapp/android</string>
     <string name="naverClientID">8wvitOt0n6CWt2PyZN_M</string>
     <string name="naverClientSecret">LYLhUkkkkq</string>
     <string name="naverClientName">pjt_spring</string>
     <string name="kakao_app_key">8ac4e22c60900c8127db2cc389fa9219</string>
+    <string name="google_web_client_id">AIzaSyCF6jnOx9ji_iXmzkU-66oaaFSDfsSswno</string>
 </resources>

@@ -70,7 +70,7 @@ public class SnsRegistActivity extends AppCompatActivity {
         et_address_detail=findViewById(R.id.sns_et_address_detail);
 
         et_name.addTextChangedListener(new InputTextVerification("^[a-zA-z가-힣]{1,8}$", et_name, textInputLayouts[0]));
-        et_nickname.addTextChangedListener(new InputTextVerification("^[a-zA-z가-힣]{3,10}$", et_nickname, textInputLayouts[1]));
+        et_nickname.addTextChangedListener(new InputTextVerification("^[a-zA-z가-힣]{3,8}$", et_nickname, textInputLayouts[1]));
         et_tel.addTextChangedListener(new InputTextVerification("^[0-9]{10,12}$", et_tel, textInputLayouts[2]));
         et_address_detail.addTextChangedListener(new InputTextVerification("^[a-zA-Z0-9가-힣]{0,45}$", et_address_detail, textInputLayouts[3]));
 
@@ -192,6 +192,7 @@ public class SnsRegistActivity extends AppCompatActivity {
                 String address_basic=et_address_basic.getText().toString().trim();
                 String address_detail=et_address_detail.getText().toString().trim();
                 String interest="";
+                String member_type=intent.getStringExtra("member_type");
 
                 for(int i=0; i<checkBoxes.length; i++){
                     if(checkBoxes[i].isChecked()){
@@ -200,8 +201,8 @@ public class SnsRegistActivity extends AppCompatActivity {
                 }
                 interest=interest.substring(0, interest.length()-1);
 
-                String param=String.format("member_id=%s&password=%s&name=%s&nickname=%s&tel=%s&address_post=%s&address_basic=%s&address_detail=%s&interest=%s",
-                        member_id, password, name, nickname, tel, address_post, address_basic, address_detail, interest);
+                String param=String.format("member_id=%s&password=%s&name=%s&nickname=%s&tel=%s&address_post=%s&address_basic=%s&address_detail=%s&interest=%s&member_type=%s",
+                        member_id, password, name, nickname, tel, address_post, address_basic, address_detail, interest, member_type);
 
                 String targetURL="/sns_regist";
 

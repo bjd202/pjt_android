@@ -107,7 +107,7 @@ public class RegistActivity extends AppCompatActivity {
         });
 
         et_name.addTextChangedListener(new InputTextVerification("^[a-zA-z가-힣]{1,8}$", et_name, textInputLayouts[3]));
-        et_nickname.addTextChangedListener(new InputTextVerification("^[a-zA-z가-힣]{3,10}$", et_nickname, textInputLayouts[4]));
+        et_nickname.addTextChangedListener(new InputTextVerification("^[a-zA-z가-힣]{3,8}$", et_nickname, textInputLayouts[4]));
         et_tel.addTextChangedListener(new InputTextVerification("^[0-9]{10,12}$", et_tel, textInputLayouts[5]));
         et_address_detail.addTextChangedListener(new InputTextVerification("^[a-zA-Z0-9가-힣]{0,45}$", et_address_detail, textInputLayouts[6]));
 

@@ -1,5 +1,6 @@
 package com.example.pjt_android;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +20,16 @@ import android.webkit.CookieManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
+import com.kakao.auth.Session;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -44,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
     Button btn_login;
     Button btn_review;
     Button btn_item;
+
+    GoogleApiClient googleApiClient;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +160,16 @@ public class MainActivity extends AppCompatActivity {
                                 if(logout_result.equals("true")){
                                     Toast.makeText(MainActivity.this, logout_msg, Toast.LENGTH_SHORT).show();
                                     btn_login.setText("로그인");
+
+                                    // 카카오 로그아웃
+                                    if(Session.getCurrentSession().isOpened()){
+                                        UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+                                            @Override
+                                            public void onCompleteLogout() {
+                                                Log.e("kakao_logout_success", "kakao_logout_success");
+                                            }
+                                        });
+                                    }
                                 }else{
                                     Toast.makeText(MainActivity.this, logout_msg, Toast.LENGTH_SHORT).show();
                                 }
@@ -182,8 +205,10 @@ public class MainActivity extends AppCompatActivity {
                 btn_login.setText("로그아웃");
             }else if(resultCode==RESULT_CANCELED){
                 String member_id=data.getStringExtra("member_id");
+                String member_type=String.valueOf(data.getIntExtra("member_type",0));
                 Intent intent=new Intent(MainActivity.this, SnsRegistActivity.class);
                 intent.putExtra("member_id", member_id);
+                intent.putExtra("member_type",member_type);
                 startActivityForResult(intent, REGIST_REQUESTCODE);
             }
         }
