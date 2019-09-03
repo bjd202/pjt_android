@@ -3,6 +3,7 @@ package com.example.pjt_android;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -78,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 login();
+            }
+        });
+        btn_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, ItemViewActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -13,13 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ItemViewActivity"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
-        <activity android:name=".SnsRegistActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".SnsRegistActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />

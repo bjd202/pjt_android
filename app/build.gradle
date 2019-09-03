@@ -20,7 +20,6 @@ android {
 }
 
 
-
 dependencies {
     implementation files('libs/naveridlogin_android_sdk_4.2.5.aar')
     implementation 'com.android.support:appcompat-v7:25.3.1'
