@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -18,9 +20,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+
 
 public class ItemViewActivity extends AppCompatActivity {
 
@@ -59,7 +59,7 @@ public class ItemViewActivity extends AppCompatActivity {
                     if(connection.getResponseCode() == HttpURLConnection.HTTP_OK){
                         BufferedReader in=new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
                         //Gson gson=new Gson();
-                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
                         Type type=new TypeToken<ArrayList<SimpleBoardItemView>>(){}.getType();
                         itemList=gson.fromJson(in, type);
@@ -72,6 +72,16 @@ public class ItemViewActivity extends AppCompatActivity {
 
                                 adapter=new SimpleItemRecyclerViewAdapter(itemList);
                                 recyclerView.setAdapter(adapter);
+
+//                                adapter.setOnItemClickListener(new SimpleItemRecyclerViewAdapter.OnItemClickListener() {
+//                                    @Override
+//                                    public void onItemClick(View v, int position) {
+//                                        SimpleBoardItemView item=itemList.get(position);
+//                                        Intent intent=new Intent(ItemViewActivity.this, DetailBoardItemViewActivity.class);
+//                                        intent.putExtra("board_id", item.getBoard_id());
+//                                        startActivity(intent);
+//                                    }
+//                                });
                             }
                         });
 

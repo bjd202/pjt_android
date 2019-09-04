@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ItemViewActivity"></activity>
+        <activity android:name=".DetailBoardItemViewActivity" />
+        <activity android:name=".ItemViewActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

@@ -1,6 +1,7 @@
 package com.example.pjt_android;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SimpleBoardItemView implements Serializable {
@@ -159,6 +160,12 @@ public class SimpleBoardItemView implements Serializable {
 
     public Date getWrite_date() {
         return write_date;
+    }
+
+    public String getWrite_dateString(){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+
+        return sdf.format(write_date);
     }
 
     public void setWrite_date(Date write_date) {
