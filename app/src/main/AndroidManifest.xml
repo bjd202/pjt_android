@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DetailBoardItemViewActivity" />
+        <activity android:name=".DetailBoardItemViewActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ItemViewActivity" />
 
         <meta-data
