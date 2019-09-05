@@ -1,4 +1,4 @@
-package com.example.pjt_android;
+package com.example.pjt_android.com.tje.model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

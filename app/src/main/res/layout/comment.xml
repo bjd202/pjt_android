@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/comment_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="닉네임"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/comment_write_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="작성 날짜" />
+
+    <TextView
+        android:id="@+id/comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="3"
+        android:maxLines="6"
+        android:minLines="1"
+        android:text="내용" />
+</LinearLayout>

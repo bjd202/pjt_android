@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">pjt_android</string>
     <string name="HOST_NETWORK_PROTOCOL">http://</string>
-    <string name="HOST_ADDRESS">192.168.219.100:8181</string>
+    <string name="HOST_ADDRESS">192.168.0.25:8080</string>
     <string name="HOST_APP_NAME">/webapp/android</string>
     <string name="HOST_IMG_URL">/webapp/resources/images/</string>
     <string name="naverClientID">8wvitOt0n6CWt2PyZN_M</string>

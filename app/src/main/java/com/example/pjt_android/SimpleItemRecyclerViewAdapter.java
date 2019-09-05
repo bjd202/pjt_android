@@ -2,10 +2,6 @@ package com.example.pjt_android;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.pjt_android.com.tje.model.SimpleBoardItemView;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
@@ -64,11 +60,13 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
                     if(pos!=RecyclerView.NO_POSITION){
                         SimpleBoardItemView item=itemList.get(pos);
 
+                        item.setView_cnt(item.getView_cnt()+1);
+                        notifyItemChanged(pos);
+
                         Intent intent=new Intent(view.getContext(), DetailBoardItemViewActivity.class);
                         intent.putExtra("board_id", item.getBoard_id());
 
                         view.getContext().startActivity(intent);
-
 //                        if(listener!=null){
 //                            listener.onItemClick(view, pos);
 //                        }
@@ -120,4 +118,5 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     public int getItemCount() {
         return this.itemList.size();
     }
+
 }
