@@ -90,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="true"
                 android:text="구매" />
 
             <Button
@@ -110,6 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="좋아요" />
 
             <Button
@@ -117,6 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="싫어요" />
         </LinearLayout>
 
@@ -141,17 +144,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="댓글 내용"
                 android:inputType="textMultiLine|textPersonName"
                 android:lines="2"
                 android:maxLines="4"
-                android:minLines="2"
-                android:text="Name" />
+                android:minLines="2" />
 
             <Button
                 android:id="@+id/detail_item_comment_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:inputType="textMultiLine"
                 android:text="댓글 작성" />
         </LinearLayout>
