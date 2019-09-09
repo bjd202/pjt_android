@@ -35,7 +35,7 @@ import java.util.Map;
 
 public class ItemViewActivity extends AppCompatActivity {
 
-    private final int ADD_REQUEST_CODE=500;
+    public static final int ADD_REQUEST_CODE=500;
 
     private ArrayList<SimpleBoardItemView> itemList;
 
@@ -62,7 +62,7 @@ public class ItemViewActivity extends AppCompatActivity {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.simple_menu, menu);
 
-        add_item= menu.findItem(R.id.add_item);
+        add_item=menu.findItem(R.id.add_item);
 
         return true;
     }
@@ -83,6 +83,10 @@ public class ItemViewActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==ADD_REQUEST_CODE){
+            setRecyclerView();
+        }
     }
 
     private void is_login(){
