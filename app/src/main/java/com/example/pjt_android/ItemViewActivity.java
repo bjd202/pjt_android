@@ -44,6 +44,7 @@ public class ItemViewActivity extends AppCompatActivity {
     SimpleItemRecyclerViewAdapter adapter;
 
     MenuItem add_item;
+    MenuItem cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,10 @@ public class ItemViewActivity extends AppCompatActivity {
 
         recyclerView=findViewById(R.id.recyclerView);
 
-        is_login();
+
         setRecyclerView();
+        is_login();
+
 
     }
 
@@ -63,6 +66,7 @@ public class ItemViewActivity extends AppCompatActivity {
         inflater.inflate(R.menu.simple_menu, menu);
 
         add_item=menu.findItem(R.id.add_item);
+        cart=menu.findItem(R.id.cart);
 
         return true;
     }
@@ -74,6 +78,10 @@ public class ItemViewActivity extends AppCompatActivity {
             case R.id.add_item:
                 Intent intent=new Intent(ItemViewActivity.this, AddItemActivity.class);
                 startActivityForResult(intent, ADD_REQUEST_CODE);
+                return true;
+            case R.id.cart:
+                Intent cart_intetn=new Intent(ItemViewActivity.this, CartActivity.class);
+                startActivity(cart_intetn);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -142,6 +150,7 @@ public class ItemViewActivity extends AppCompatActivity {
 
                                 if(is_login.equals("true")){
                                     add_item.setEnabled(true);
+                                    cart.setEnabled(true);
                                 }
 
                             }

@@ -82,8 +82,6 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
 
         comment_recyclerView=findViewById(R.id.comment_recyclerView);
 
-        setDetailView();
-
         detail_item_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,6 +102,8 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
                 add_comment();
             }
         });
+
+        setDetailView();
     }
 
     private void like_and_dislike(final int like_or_dislike){
@@ -365,6 +365,8 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
                                     detail_item_like.setEnabled(true);
                                     detail_item_dislike.setEnabled(true);
                                     detail_item_comment_btn.setEnabled(true);
+                                    detail_item_buy.setEnabled(true);
+                                    detail_item_cart.setEnabled(true);
                                 }
 
                                 Glide.with(DetailBoardItemViewActivity.this).load(imgUrl).into(detail_item_image);
