@@ -12,6 +12,8 @@ public class Cart {
     private int category;
     private String price;
     private Date add_time;
+    private boolean isSelected;
+    private int number;
 
     public Cart() {
     }
@@ -104,5 +106,21 @@ public class Cart {
 
     public void setAdd_time(Date add_time) {
         this.add_time = add_time;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

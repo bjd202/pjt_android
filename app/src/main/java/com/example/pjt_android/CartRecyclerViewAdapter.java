@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.media.Image;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -72,36 +74,45 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
                 context.getString(R.string.HOST_IMG_URL)+
                 cart.getImage();
 
+        holder.cart_checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                    cart.setSelected(true);
+                else
+                    cart.setSelected(false);
+            }
+        });
+        holder.cart_checkbox.setChecked(cart.isSelected());
+
         Glide.with(holder.itemView.getContext()).load(imgUrl).into(holder.cart_imageview);
         holder.cart_title.setText(cart.getTitle());
         holder.cart_category.setText(cart.getCategoryString());
-        holder.cart_number.addTextChangedListener(new TextWatcher() {
+        holder.cart_price.setText(cart.getPrice());
+        holder.cart_number.setText(cart.getNumber()+"");
+
+        holder.cart_number.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if(holder.cart_number.getText().toString().trim().equals(""))
-                    return;
-                int number= Integer.parseInt(holder.cart_number.getText().toString().trim());
-                int price= Integer.parseInt(cart.getPrice());
-                holder.cart_price.setText(price*number+"원");
+            public void onFocusChange(View view, boolean b) {
+                if(b) {
+                    cart.setNumber(Integer.parseInt(holder.cart_number.getText().toString()));
+                    Log.e("position", holder.getAdapterPosition()+"");
+                }
+                else
+                    cart.setNumber(Integer.parseInt(holder.cart_number.getText().toString()));
             }
         });
-        holder.cart_price.setText(cart.getPrice()+"원");
+
         holder.cart_add_wrtie.setText(cart.getAdd_timeString());
     }
 
     @Override
     public int getItemCount() {
         return this.cartList.size();
+    }
+
+    public ArrayList<Cart> getCartList(){
+        return this.cartList;
     }
 
 }
