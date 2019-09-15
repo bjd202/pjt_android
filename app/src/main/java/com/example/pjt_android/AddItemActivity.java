@@ -71,6 +71,7 @@ public class AddItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+        setTitle("상품 추가");
 
         add_item_til_title=findViewById(R.id.add_item_til_title);
         add_item_til_content=findViewById(R.id.add_item_til_content);
@@ -132,6 +133,13 @@ public class AddItemActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
     private void add_item(){

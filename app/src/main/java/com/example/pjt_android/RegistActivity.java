@@ -148,6 +148,13 @@ public class RegistActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+    }
+
     private void initWebView(){
 
         String targetURL="/address_search";
@@ -155,7 +162,7 @@ public class RegistActivity extends AppCompatActivity {
         dialog=new Dialog(this);
         dialog.setContentView(R.layout.input_address);
 
-        webView=dialog.findViewById(R.id.webView);
+        webView=dialog.findViewById(R.id.webView1);
         // JavaScript 허용
         webView.getSettings().setJavaScriptEnabled(true);
         // JavaScript의 window.open 허용

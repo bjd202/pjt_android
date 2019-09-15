@@ -1,5 +1,6 @@
 package com.example.pjt_android;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -61,12 +62,14 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
                         SimpleBoardItemView item=itemList.get(pos);
 
                         item.setView_cnt(item.getView_cnt()+1);
+
                         notifyItemChanged(pos);
 
                         Intent intent=new Intent(view.getContext(), DetailBoardItemViewActivity.class);
                         intent.putExtra("board_id", item.getBoard_id());
 
                         view.getContext().startActivity(intent);
+                        ((Activity)view.getContext()).overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
 //                        if(listener!=null){
 //                            listener.onItemClick(view, pos);
 //                        }
@@ -77,7 +80,11 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     }
 
     public SimpleItemRecyclerViewAdapter(ArrayList<SimpleBoardItemView> itemList) {
-        this.itemList = itemList;
+        if(itemList==null){
+            this.itemList=new ArrayList<>();
+        }else{
+            this.itemList = itemList;
+        }
     }
 
     @NonNull
@@ -109,8 +116,8 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
         holder.simpleItem_nickname.setText(item.getNickname());
         holder.simpleItem_date.setText(item.getWrite_dateString());
         holder.simpleItem_category.setText(item.getCategoryString());
-        holder.simpleItem_like_cnt.setText("좋아요 : "+item.getLike_cnt());
-        holder.simpleItem_dislike_cnt.setText("싫어요 : "+item.getDislike_cnt());
+        holder.simpleItem_like_cnt.setText(""+item.getLike_cnt());
+        holder.simpleItem_dislike_cnt.setText(""+item.getDislike_cnt());
         holder.simpleItem_view_cnt.setText("조회수 : "+item.getView_cnt());
     }
 

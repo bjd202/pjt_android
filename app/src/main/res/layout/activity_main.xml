@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="#03A9F4"
+        android:fontFamily="@font/nanumbarunpenb"
         android:gravity="center"
         android:text="The Glasses"
         android:textSize="30sp" />
@@ -19,42 +21,65 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="15dp">
 
         <Button
             android:id="@+id/btn_regist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="회원가입" />
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/baseline_person_add_black_18"
+            android:drawablePadding="-30dp"
+            android:fontFamily="@font/nanumbarunpenr"
+            android:text="회원가입"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_login"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="로그인" />
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/baseline_account_box_black_18"
+            android:drawablePadding="-30dp"
+            android:fontFamily="@font/nanumbarunpenr"
+            android:text="로그인"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="15dp">
 
         <Button
             android:id="@+id/btn_review"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="리뷰" />
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/baseline_local_offer_black_18"
+            android:drawablePadding="-30dp"
+            android:fontFamily="@font/nanumbarunpenr"
+            android:text="리뷰"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_item"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="상품" />
+            android:background="?attr/selectableItemBackground"
+            android:drawableLeft="@drawable/baseline_store_black_18"
+            android:drawablePadding="-30dp"
+            android:fontFamily="@font/nanumbarunpenr"
+            android:text="상품"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>

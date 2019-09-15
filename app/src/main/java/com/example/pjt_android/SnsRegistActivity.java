@@ -57,6 +57,7 @@ public class SnsRegistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sns_regist);
+        setTitle("sns 회원가입");
 
         textInputLayouts=new TextInputLayout[4];
         textInputLayouts[0]=findViewById(R.id.sns_til_name);
@@ -111,6 +112,13 @@ public class SnsRegistActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
     private void initWebView(){

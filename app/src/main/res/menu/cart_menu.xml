@@ -3,8 +3,10 @@
 
     <item
         android:id="@+id/selected_buy"
+        android:icon="@drawable/baseline_shopping_cart_black_18dp"
         android:title="선택 상품 구매" />
     <item
         android:id="@+id/selected_delete"
+        android:icon="@drawable/baseline_remove_shopping_cart_black_18dp"
         android:title="선택 상품 삭제" />
 </menu>

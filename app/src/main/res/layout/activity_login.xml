@@ -60,12 +60,16 @@
                     android:id="@+id/loginact_btn_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/nanumbarunpenb"
                     android:text="로그인" />
 
                 <Button
                     android:id="@+id/loginact_btn_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/nanumbarunpenb"
                     android:text="이전" />
             </LinearLayout>
 
@@ -76,7 +80,7 @@
 
                 <com.google.android.gms.common.SignInButton
                     android:id="@+id/google_login"
-                    android:layout_width="230dp"
+                    android:layout_width="243dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:clickable="false" />

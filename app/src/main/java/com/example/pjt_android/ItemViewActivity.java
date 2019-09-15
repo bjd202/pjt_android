@@ -7,6 +7,7 @@ import androidx.appcompat.view.menu.ActionMenuItem;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import java.util.Map;
 public class ItemViewActivity extends AppCompatActivity {
 
     public static final int ADD_REQUEST_CODE=500;
+    public static final int DETAIL_REQUEST_CODE=400;
 
     private ArrayList<SimpleBoardItemView> itemList;
 
@@ -50,6 +52,7 @@ public class ItemViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_view);
+        setTitle("상품 리스트");
 
         recyclerView=findViewById(R.id.recyclerView);
 
@@ -58,6 +61,13 @@ public class ItemViewActivity extends AppCompatActivity {
         is_login();
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        fileList();
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
     @Override
@@ -78,10 +88,12 @@ public class ItemViewActivity extends AppCompatActivity {
             case R.id.add_item:
                 Intent intent=new Intent(ItemViewActivity.this, AddItemActivity.class);
                 startActivityForResult(intent, ADD_REQUEST_CODE);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 return true;
             case R.id.cart:
-                Intent cart_intetn=new Intent(ItemViewActivity.this, CartActivity.class);
-                startActivity(cart_intetn);
+                Intent cart_intent=new Intent(ItemViewActivity.this, CartActivity.class);
+                startActivity(cart_intent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -93,6 +105,8 @@ public class ItemViewActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==ADD_REQUEST_CODE){
+            setRecyclerView();
+        }else if(requestCode==400){
             setRecyclerView();
         }
     }

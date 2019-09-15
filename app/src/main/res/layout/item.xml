@@ -22,10 +22,11 @@
             android:id="@+id/simpleItem_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nanumbarunpenb"
             android:gravity="center"
             android:text="제목"
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,14 +40,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanumbarunpenr"
                 android:gravity="center"
-                android:text="가격" />
+                android:text="작성자" />
 
             <TextView
                 android:id="@+id/simpleItem_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanumbarunpenr"
                 android:gravity="center"
                 android:text="날짜" />
 
@@ -55,6 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanumbarunpenr"
                 android:gravity="center"
                 android:text="카테고리" />
         </LinearLayout>
@@ -71,6 +75,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableLeft="@drawable/baseline_thumb_up_black_18"
+                android:drawablePadding="-30dp"
+                android:fontFamily="@font/nanumbarunpenr"
                 android:gravity="center"
                 android:text="좋아요" />
 
@@ -79,6 +86,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableLeft="@drawable/baseline_thumb_down_black_18"
+                android:drawablePadding="-30dp"
+                android:fontFamily="@font/nanumbarunpenr"
                 android:gravity="center"
                 android:text="싫어요" />
 
@@ -88,7 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="조회수" />
+                android:text="조회수"
+                android:fontFamily="@font/nanumbarunpenr" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

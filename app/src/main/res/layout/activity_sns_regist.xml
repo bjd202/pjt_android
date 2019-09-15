@@ -19,6 +19,7 @@
                 android:id="@+id/sns_textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="이름"
                 android:textSize="24sp" />
 
@@ -42,6 +43,7 @@
                 android:id="@+id/sns_textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="*별명"
                 android:textSize="24sp" />
 
@@ -65,6 +67,7 @@
                 android:id="@+id/sns_textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="전화번호"
                 android:textSize="24sp" />
 
@@ -88,6 +91,7 @@
                 android:id="@+id/sns_textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="주소"
                 android:textSize="24sp" />
 
@@ -127,6 +131,8 @@
                 android:id="@+id/sns_btn_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="주소 찾기" />
 
             <TextView
@@ -200,12 +206,16 @@
                 android:id="@+id/sns_btn_regist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="회원가입" />
 
             <Button
                 android:id="@+id/sns_btn_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="이전" />
         </LinearLayout>
     </ScrollView>

@@ -17,7 +17,11 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
     ArrayList<Comment> commentList;
 
     public CommentRecyclerViewAdapter(ArrayList<Comment> commentList) {
-        this.commentList = commentList;
+        if(commentList==null){
+            this.commentList=new ArrayList<>();
+        }else {
+            this.commentList = commentList;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

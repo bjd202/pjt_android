@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:name=".kakao_login.GlobalApplication"
@@ -15,7 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CartActivity"></activity>
+        <activity android:name=".DetailReviewActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ReviewActivity" />
+        <activity
+            android:name=".CartActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".AddItemActivity" />
         <activity
             android:name=".DetailBoardItemViewActivity"

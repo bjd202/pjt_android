@@ -44,7 +44,6 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
     TextView detail_item_price;
     TextView detail_item_number;
 
-    Button detail_item_buy;
     Button detail_item_cart;
     Button detail_item_like;
     Button detail_item_dislike;
@@ -62,6 +61,7 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_board_item_view);
+        setTitle("상품");
 
         detail_item_image=findViewById(R.id.detail_item_image);
         detail_item_nickname=findViewById(R.id.detail_item_nickname);
@@ -70,7 +70,6 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
         detail_item_price=findViewById(R.id.detail_item_price);
         detail_item_number=findViewById(R.id.detail_item_number);
 
-        detail_item_buy=findViewById(R.id.detail_item_buy);
         detail_item_cart=findViewById(R.id.detail_item_cart);
         detail_item_like=findViewById(R.id.detail_item_like);
         detail_item_dislike=findViewById(R.id.detail_item_dislike);
@@ -81,6 +80,15 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
         detail_item_comment_btn=findViewById(R.id.detail_item_comment_btn);
 
         comment_recyclerView=findViewById(R.id.comment_recyclerView);
+
+        setDetailView();
+
+        detail_item_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                add_cart();
+            }
+        });
 
         detail_item_like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,13 +110,93 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
                 add_comment();
             }
         });
+    }
 
-        setDetailView();
+    private void add_cart(){
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent=getIntent();
+                int board_id=intent.getIntExtra("board_id", 0);
+
+                String param=String.format("board_id=%d", board_id);
+                String targetURL="/add_cart/"+board_id;
+
+                try {
+                    URL endPoint = new URL(getString(R.string.HOST_NETWORK_PROTOCOL) +
+                            getString(R.string.HOST_ADDRESS) +
+                            getString(R.string.HOST_APP_NAME) +
+                            targetURL);
+                    HttpURLConnection connection = (HttpURLConnection) endPoint.openConnection();
+
+                    String cookieString = CookieManager.getInstance().getCookie(getString(R.string.HOST_NETWORK_PROTOCOL) +
+                            getString(R.string.HOST_ADDRESS) +
+                            getString(R.string.HOST_APP_NAME));
+
+                    if (cookieString != null) {
+                        connection.setRequestProperty("Cookie", cookieString);
+                    }
+
+                    connection.setRequestMethod("POST");
+                    connection.setDoOutput(true);
+                    connection.getOutputStream().write(param.getBytes());
+
+                    if( connection.getResponseCode() == HttpURLConnection.HTTP_OK ){
+                        Map<String, List<String>> headerFields = connection.getHeaderFields();
+                        String COOKIES_HEADER = "Set-Cookie";
+                        List<String> cookiesHeader = headerFields.get(COOKIES_HEADER);
+
+                        if(cookiesHeader != null) {
+                            for (String cookie : cookiesHeader) {
+                                String cookieName = HttpCookie.parse(cookie).get(0).getName();
+                                String cookieValue = HttpCookie.parse(cookie).get(0).getValue();
+
+                                cookieString = cookieName + "=" + cookieValue;
+                                CookieManager.getInstance().setCookie(
+                                        getString(R.string.HOST_NETWORK_PROTOCOL) +
+                                                getString(R.string.HOST_ADDRESS) +
+                                                getString(R.string.HOST_APP_NAME), cookieString);
+                            }
+                        }
+
+                        BufferedReader in=new BufferedReader(new InputStreamReader(connection.getInputStream(),"UTF-8"));
+                        Gson gson=new Gson();
+
+                        HashMap<String, String> map=new HashMap<>();
+                        map=gson.fromJson(in, map.getClass());
+
+                        final String result=map.get("result");
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(result.equals("true")){
+                                    Toast.makeText(DetailBoardItemViewActivity.this, "장바구니에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(DetailBoardItemViewActivity.this, "장바구니 추가를 실패했습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+
+                    }else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(DetailBoardItemViewActivity.this, "통신 에러", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    connection.disconnect();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void like_and_dislike(final int like_or_dislike){
-
-
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -176,8 +264,8 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
                                     return;
                                 }
 
-                                detail_item_like.setText("좋아요 : "+like_cnt);
-                                detail_item_dislike.setText("싫어요 : "+dislike_cnt);
+                                detail_item_like.setText(""+like_cnt);
+                                detail_item_dislike.setText(""+dislike_cnt);
                             }
                         });
 
@@ -199,12 +287,21 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        finish();
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+    }
+
     private void add_comment(){
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 Intent intent=getIntent();
                 int board_id=intent.getIntExtra("board_id", 0);
+                int topic=3;
                 String content=detail_item_comment_content.getText().toString();
 
                 if(content.length()==0){
@@ -212,7 +309,7 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
                     return;
                 }
 
-                String param=String.format("board_id=%d&content=%s", board_id, content);
+                String param=String.format("board_id=%d&content=%s&topic=%d", board_id, content, topic);
                 String targetURL="/add_comment";
 
                 try {
@@ -265,8 +362,9 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(DetailBoardItemViewActivity.this, comment_result, Toast.LENGTH_SHORT).show();
-                                if(comment!=null)
+                                if(comment!=null){
                                     adapter.add_comment(comment);
+                                }
                             }
                         });
 
@@ -365,7 +463,6 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
                                     detail_item_like.setEnabled(true);
                                     detail_item_dislike.setEnabled(true);
                                     detail_item_comment_btn.setEnabled(true);
-                                    detail_item_buy.setEnabled(true);
                                     detail_item_cart.setEnabled(true);
                                 }
 
@@ -377,19 +474,16 @@ public class DetailBoardItemViewActivity extends AppCompatActivity {
                                 detail_item_price.setText(result.getPrice()+"원");
                                 detail_item_number.setText(result.getNumber()+"개");
 
-                                detail_item_like.setText("좋아요 : "+result.getLike_cnt());
-                                detail_item_dislike.setText("싫어요 : "+result.getDislike_cnt());
+                                detail_item_like.setText(""+result.getLike_cnt());
+                                detail_item_dislike.setText(""+result.getDislike_cnt());
 
                                 detail_item_content.setText(result.getContent());
 
-                                if( commentList!=null ) {
-                                    linearLayoutManager = new LinearLayoutManager(DetailBoardItemViewActivity.this);
-                                    comment_recyclerView.setLayoutManager(linearLayoutManager);
+                                linearLayoutManager = new LinearLayoutManager(DetailBoardItemViewActivity.this);
+                                comment_recyclerView.setLayoutManager(linearLayoutManager);
 
-                                    adapter = new CommentRecyclerViewAdapter(commentList);
-                                    comment_recyclerView.setAdapter(adapter);
-                                }
-
+                                adapter = new CommentRecyclerViewAdapter(commentList);
+                                comment_recyclerView.setAdapter(adapter);
                             }
                         });
 

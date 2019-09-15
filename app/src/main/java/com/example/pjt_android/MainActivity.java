@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("메인");
 
         btn_regist=findViewById(R.id.btn_regist);
         btn_login=findViewById(R.id.btn_login);
@@ -81,11 +82,21 @@ public class MainActivity extends AppCompatActivity {
                 login();
             }
         });
+        btn_review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, ReviewActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+            }
+        });
+
         btn_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this, ItemViewActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
             }
         });
 
@@ -96,12 +107,14 @@ public class MainActivity extends AppCompatActivity {
     public void regist(){
         Intent intent=new Intent(this, RegistActivity.class);
         startActivityForResult(intent, REGIST_REQUESTCODE);
+        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
     }
 
     public void login(){
         if(btn_login.getText().toString().equals("로그인")) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivityForResult(intent, LOGIN_REQUESTCODE);
+            overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         }else{
             logout();
         }
@@ -211,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                 String login_msg = data.getStringExtra("login_msg");
                 Toast.makeText(this, login_msg, Toast.LENGTH_SHORT).show();
                 btn_login.setText("로그아웃");
-            }else if(resultCode==RESULT_CANCELED){
+            }else if(resultCode==10){
                 String member_id=data.getStringExtra("member_id");
                 String member_type=String.valueOf(data.getIntExtra("member_type",0));
                 Intent intent=new Intent(MainActivity.this, SnsRegistActivity.class);

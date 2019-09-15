@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setTitle("로그인");
 
         mOAuthLoginModule.init(
                 this,
@@ -146,6 +147,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, R_SIGN_IN);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
     private void login(){
@@ -329,7 +337,7 @@ public class LoginActivity extends AppCompatActivity {
                                             finish();
                                         }else {
                                             Intent intent=getIntent();
-                                            setResult(RESULT_CANCELED, intent);
+                                            setResult(10, intent);
                                             intent.putExtra("member_id", id);
                                             intent.putExtra("member_type",1);
                                             finish();

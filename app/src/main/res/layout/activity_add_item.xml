@@ -8,16 +8,18 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="*제목"
                 android:textSize="24sp" />
 
@@ -39,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="*내용"
                 android:textSize="24sp" />
 
@@ -67,6 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/nanumbarunpenb"
                     android:gravity="center"
                     android:text="카테고리"
                     android:textSize="24sp" />
@@ -90,6 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:fontFamily="@font/nanumbarunpenb"
                     android:gravity="center"
                     android:text="*개수"
                     android:textSize="24sp" />
@@ -113,6 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:fontFamily="@font/nanumbarunpenb"
                     android:gravity="center"
                     android:text="*가격"
                     android:textSize="24sp" />
@@ -130,6 +136,8 @@
                 android:id="@+id/add_item_select_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:fontFamily="@font/nanumbarunpenb"
                 android:text="이미지 선택" />
 
             <ImageView
@@ -148,6 +156,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/nanumbarunpenb"
                     android:text="상품 추가" />
 
                 <Button
@@ -155,6 +165,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:fontFamily="@font/nanumbarunpenb"
                     android:text="취소" />
             </LinearLayout>
 
