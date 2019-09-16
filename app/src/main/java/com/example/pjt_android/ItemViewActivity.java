@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.ActionMenuItem;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -218,6 +219,7 @@ public class ItemViewActivity extends AppCompatActivity {
                                 recyclerView.setLayoutManager(linearLayoutManager);
 
                                 adapter=new SimpleItemRecyclerViewAdapter(itemList);
+                                recyclerView.addItemDecoration(new DividerItemDecoration(ItemViewActivity.this, 1));
                                 recyclerView.setAdapter(adapter);
 
                             }

@@ -94,12 +94,15 @@ public class CartRecyclerViewAdapter extends RecyclerView.Adapter<CartRecyclerVi
         holder.cart_number.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if(b) {
-                    cart.setNumber(Integer.parseInt( holder.cart_number.getText().toString().equals("") ? "0" : holder.cart_number.getText().toString() ));
-                    Log.e("position", holder.getAdapterPosition()+"");
-                }
-                else
-                    cart.setNumber(Integer.parseInt( holder.cart_number.getText().toString().equals("") ? "0" : holder.cart_number.getText().toString() ));
+//                if(b) {
+//                    cart.setNumber(Integer.parseInt( holder.cart_number.getText().toString().equals("") ? "0" : holder.cart_number.getText().toString() ));
+//                    Log.e("position", holder.getAdapterPosition()+"");
+//                }
+//                else
+//                    cart.setNumber(Integer.parseInt( holder.cart_number.getText().toString().equals("") ? "0" : holder.cart_number.getText().toString() ));
+
+                cart.setNumber(Integer.parseInt( holder.cart_number.getText().toString().equals("") ? "0" : holder.cart_number.getText().toString() ));
+                Log.e("position", holder.getAdapterPosition()+"");
             }
         });
 

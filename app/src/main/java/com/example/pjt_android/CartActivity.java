@@ -263,6 +263,7 @@ public class CartActivity extends AppCompatActivity {
 
                             return;
                         }
+
                         CartJsonModel model=new CartJsonModel(
                                 cart.getBoard_id(),
                                 cart.getCategory(),

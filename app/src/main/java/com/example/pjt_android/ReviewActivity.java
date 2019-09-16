@@ -1,6 +1,7 @@
 package com.example.pjt_android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -74,6 +75,7 @@ public class ReviewActivity extends AppCompatActivity {
                                 recyclerView.setLayoutManager(linearLayoutManager);
 
                                 adapter=new SimpleReviewRecyclerViewAdapter(reviewList);
+                                recyclerView.addItemDecoration(new DividerItemDecoration(ReviewActivity.this, 1));
                                 recyclerView.setAdapter(adapter);
 
                             }
